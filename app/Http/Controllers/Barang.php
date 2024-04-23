@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\BarangModels;
@@ -90,10 +91,35 @@ class Barang extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $id = $request->input('id_barang');
+
+        $request->validate([
+            'kategori_barang' => 'required',
+            'nama_barang' => 'required',
+            'supplier_id' => 'required',
+            'satuan_barang' => 'required',
+            'harga_barang' => 'required',
+            'deskripsi' => 'required',
+            'gambar' => 'required|image|max:2048',
+        ]);
+
+        // Membuat direktori jika belum ada
+        if (!Storage::exists('public/barang')) {
+            Storage::makeDirectory('public/barang');
+        }
+
+        $gambarPath = $request->file('gambar')->store('barang', 'public');
+
+        $barang = BarangModels::findOrFail($id);
+        $barang->gambar = $gambarPath;
+        
+        $barang->update($request->except('gambar'));
+
+        return redirect()->route('barang')->with('success', 'Data berhasil diupdate.');
     }
+
 
     /**
      * Remove the specified resource from storage.

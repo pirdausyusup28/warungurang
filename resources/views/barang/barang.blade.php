@@ -143,43 +143,84 @@
       <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Data Supplier</h5>
+                <h5 class="modal-title" id="editModalLabel">Edit Data Barang</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                  <form method="POST" action="{{ route('supplier.update') }}">
+                  <form method="POST" action="{{ route('barang.update') }}" enctype="multipart/form-data">
                   @csrf
                   @method('PUT')
                   <div class="mb-3">
-                    <label for="edit_nama_supplier" class="form-label">Nama Supplier</label>
-                    <input type="hidden" name="id_barang" id="editId">
-                    <input type="text" class="form-control" id="edit_nama_supplier" name="nama_supplier" required>
+                    <input type="hidden" name="id_barang" id="eid">
                   </div>
-                  <div class="mb-3">
-                      <label for="editNama" class="form-label">Kontak</label>
-                      <input type="text" class="form-control" id="edit_kontak" name="kontak" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">Deskripsi</label>
-                    <input type="text" class="form-control" id="edit_deskripsi" name="deskripsi" required placeholder="">
-                  </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
+                  <div class="modal-body">
+                    <div class="mb-3">
+                      <label for="formGroupExampleInput2" class="form-label">Kode Barang</label>
+                      <input type="text" class="form-control" id="e0" name="kd_barang" required placeholder="" readonly>
+                    </div>
+                    <div class="mb-3">
+                      <label for="formGroupExampleInput2" class="form-label">Kategori Barang</label>
+                      <select name="kategori_barang" id="e1" class="form-control">
+                        <option value="-">Pilih</option>
+                        <option value="Makanan">Makanan</option>
+                        <option value="Minuman">Minuman</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="formGroupExampleInput2" class="form-label">Nama Barang</label>
+                      <input type="text" class="form-control" id="e2" name="nama_barang" required placeholder="">
+                    </div>
+                    <div class="mb-3">
+                      <label for="formGroupExampleInput2" class="form-label">Supplier</label>
+                      <select name="supplier_id" id="e3" class="form-control">
+                        <option value="-">Pilih</option>
+                        @foreach ($supplier as $index => $s)
+                          <option value="{{ $s->id_supplier}}">{{ $s->nama_supplier}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="formGroupExampleInput2" class="form-label">Satuan Barang</label>
+                      <select name="satuan_barang" id="e4" class="form-control">
+                        <option value="-">Pilih</option>
+                        <option value="Gram">Gram</option>
+                        <option value="Liter">Liter</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="formGroupExampleInput2" class="form-label">Harga</label>
+                      <input type="text" class="form-control" id="e5" name="harga_barang" required placeholder="">
+                    </div>
+                    <div class="mb-3">
+                      <label for="formGroupExampleInput2" class="form-label">Deskripsi</label>
+                      <input type="text" class="form-control" id="e6" name="deskripsi" required placeholder="">
+                    </div>
+                    <div class="mb-3">
+                      <label for="formGroupExampleInput2" class="form-label">Gambar Barang</label>
+                      <input type="file" class="form-control" id="gambar" name="gambar" required placeholder="">
+                    </div>
+                    <div class="mb-3">
+                      <label for="formGroupExampleInput2" class="form-label">Gambar Barang Sebelumnya</label>
+                      <img src="" alt="" id="e7" class="img-fluid">
+                    </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
           </form>
+          </div>
         </div>
       </div>
     </div>
     {{-- MODAL EDIT DATA --}}
 
     {{-- MODAL VIEW DATA --}}
-    <div class="modal fade" id="myModalview" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModalview" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Informmasi Data Barang</h5>
+                <h5 class="modal-title" id="viewModalLabel">Informmasi Data Barang</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -247,21 +288,21 @@
       function editdata(id) {
         $.get(apiUrl + "barang/" + id, function(data, status){
           console.log('data');
-            console.log(data.nama_karyawan);
+            console.log(data);
             $('#eid').val(data.id_barang);
-            $('#e0').text(data.kd_barang);
-            $('#e1').text(data.kategori_barang);
-            $('#e2').text(data.nama_barang);
-            $('#e3').text(data.supplier.nama_supplier);
-            $('#e4').text(data.satuan_barang);
-            $('#e5').text(data.harga_barang);
-            $('#e6').text(data.deskripsi);
-            $('#viewPhoto').attr('src', '{{ asset('storage') }}/' + data.gambar);
+            $('#e0').val(data.kd_barang);
+            $('#e1').val(data.kategori_barang);
+            $('#e2').val(data.nama_barang);
+            // $('#e3').val(data.supplier.nama_supplier);
+            $('#e4').val(data.satuan_barang);
+            $('#e5').val(data.harga_barang);
+            $('#e6').val(data.deskripsi);
+            $('#e7').attr('src', '{{ asset('storage') }}/' + data.gambar);
             $("#myModal").modal('show');
         });
       }
 
-      function viewdata (id) {
+      function viewdata(id) {
         $.get(apiUrl + "barang/" + id, function(data, status){
           console.log('data');
             console.log(data);
