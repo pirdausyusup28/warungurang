@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfilWarung;
 use App\Http\Controllers\Stock;
 use App\Http\Controllers\Supplier;
 use App\Http\Controllers\Barang;
+use App\Http\Controllers\GudangRak;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('barang', [Barang::class, 'store'])->name('barang.store');
     Route::put('barang', [Barang::class, 'update'])->name('barang.update');
     Route::delete('/barang/{id}', [Barang::class, 'destroy'])->name('barang.destroy');
+
+    Route::get('gudangrak', [GudangRak::class, 'index'])->name('gudangrak');
+    Route::post('gudang', [GudangRak::class, 'store'])->name('gudang.store');
+    Route::put('gudang', [GudangRak::class, 'update'])->name('gudang.update');
+    Route::delete('/gudang/{id}', [GudangRak::class, 'destroy'])->name('gudang.destroy');
 
     Route::get('stock', [Stock::class, 'index'])->name('stock');
     Route::get('kasir', [Kasir::class, 'index'])->name('kasir');

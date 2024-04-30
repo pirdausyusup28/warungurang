@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'jwt', // menggunakan driver 'jwt'
+            'provider' => 'users',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -64,6 +69,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        // 'barang' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\BarangModels::class,
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',

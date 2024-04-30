@@ -98,7 +98,7 @@ class Barang extends Controller
         $request->validate([
             'kategori_barang' => 'required',
             'nama_barang' => 'required',
-            'supplier_id' => 'required',
+            'supplier_id' => 'required',  // Memastikan supplier_id ada dalam validasi
             'satuan_barang' => 'required',
             'harga_barang' => 'required',
             'deskripsi' => 'required',
@@ -113,12 +113,21 @@ class Barang extends Controller
         $gambarPath = $request->file('gambar')->store('barang', 'public');
 
         $barang = BarangModels::findOrFail($id);
+
+        // Update semua field termasuk supplier_id
+        $barang->kategori_barang = $request->input('kategori_barang');
+        $barang->nama_barang = $request->input('nama_barang');
+        $barang->supplier_id = $request->input('supplier_id');  // Menambahkan supplier_id
+        $barang->satuan_barang = $request->input('satuan_barang');
+        $barang->harga_barang = $request->input('harga_barang');
+        $barang->deskripsi = $request->input('deskripsi');
         $barang->gambar = $gambarPath;
-        
-        $barang->update($request->except('gambar'));
+
+        $barang->save();  // Menyimpan perubahan
 
         return redirect()->route('barang')->with('success', 'Data berhasil diupdate.');
     }
+
 
 
     /**

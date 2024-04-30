@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Models\GudangRakModels;
+use Illuminate\Support\Facades\Storage;
 
-class Dashboard extends Controller
+class GudangRak extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-            // dd($request->session()->all());
-        return response (view('dashboard.dashboard'));
+        $data = GudangRakModels::all();
+        return response(view('gudangrak.gudangrak', compact('data')));
     }
 
     /**

@@ -174,7 +174,7 @@
                       <label for="formGroupExampleInput2" class="form-label">Supplier</label>
                       <select name="supplier_id" id="e3" class="form-control">
                         <option value="-">Pilih</option>
-                        @foreach ($supplier as $index => $s)
+                        @foreach ($supplier as $s)
                           <option value="{{ $s->id_supplier}}">{{ $s->nama_supplier}}</option>
                         @endforeach
                       </select>

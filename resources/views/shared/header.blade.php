@@ -32,8 +32,8 @@
                 <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Data Barang</span>
             </a>
         </li>
-        <li class="sidebar-item {{ request()->routeIs('stock') ? 'active' : '' }}">
-            <a class="sidebar-link" href="{{ route('stock') }}">
+        <li class="sidebar-item {{ request()->routeIs('gudangrak') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('gudangrak') }}">
                 <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Data Gudang dan Rak</span>
             </a>
         </li>
@@ -83,7 +83,7 @@
        </div>
     </div>
  </nav>
- <div class="main">
+ <div class="main" >
  <nav class="navbar navbar-expand navbar-light navbar-bg">
     <a class="sidebar-toggle js-sidebar-toggle">
     <i class="hamburger align-self-center"></i>
