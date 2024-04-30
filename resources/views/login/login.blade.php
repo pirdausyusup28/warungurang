@@ -75,7 +75,7 @@
 						  @enderror
 						<div class="col-12">
 						  <div class="d-grid">
-							<button class="btn btn-primary btn-lg" type="submit">Masuk</button>
+							<button class="btn btn-primary btn-lg" type="submit">Masuk Pak Jul</button>
 						  </div>
 						</div>
 					  </div>
